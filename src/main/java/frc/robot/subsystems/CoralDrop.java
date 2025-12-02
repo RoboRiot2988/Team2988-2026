@@ -17,7 +17,7 @@ import frc.robot.Constants;
 public class CoralDrop extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
 
-  double coralForwardSpinSpeed = -0.3;
+  double coralForwardSpinSpeed = -0.5;
   double coralBackwardSpinSpeed = 0.3;
 
   private SparkMax coralDropMotor;
