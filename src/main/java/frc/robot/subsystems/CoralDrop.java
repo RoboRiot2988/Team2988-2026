@@ -18,8 +18,8 @@ public class CoralDrop extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
 
   /** THIS IS THE ACTUAL SPEED FOR THE BUCKET!!!! Negative makes it spin up and positive down, yes, it is opposite */
-  double coralForwardSpinSpeed = -0.2;
-  double coralBackwardSpinSpeed = 0.2;
+  double coralForwardSpinSpeed = -0.225;
+  double coralBackwardSpinSpeed = 0.225;
 
   private SparkMax coralDropMotor;
 
