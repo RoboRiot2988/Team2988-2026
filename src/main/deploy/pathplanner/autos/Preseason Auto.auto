@@ -7,7 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Preseason Path"
+            "pathName": "Preseason Path Back"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CorralDrop Outake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CorralDrop Stop"
           }
         }
       ]
