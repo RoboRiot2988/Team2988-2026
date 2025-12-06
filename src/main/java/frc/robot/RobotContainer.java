@@ -241,7 +241,7 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     // return drivebase.getAutonomousCommand("New Auto");
-    return drivebase.getAutonomousCommand("Preseason Auto");
+    return drivebase.getAutonomousCommand("Small Auto");
   }
 
   public void setMotorBrake(boolean brake)
