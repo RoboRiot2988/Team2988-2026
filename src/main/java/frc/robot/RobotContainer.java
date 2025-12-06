@@ -43,7 +43,7 @@ public class RobotContainer
   public static ClimberLeftSubsystem m_ClimbL = new ClimberLeftSubsystem();
   public static ClimberRightSubsystem m_ClimbR = new ClimberRightSubsystem();
   public static CoralDrop m_CoralDrop = new CoralDrop();
-  public static VisionSubsystem m_Camera1 = new VisionSubsystem();
+  // public static VisionSubsystem m_Camera1 = new VisionSubsystem();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
