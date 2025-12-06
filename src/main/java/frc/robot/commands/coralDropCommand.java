@@ -13,6 +13,13 @@ public class coralDropCommand {
     );
   }
 
+    public static Command slowCommand() {
+    return new RunCommand(
+      () -> RobotContainer.m_CoralDrop.slowSettingsSubsystem(),
+      RobotContainer.m_CoralDrop
+    );
+  }
+
     public static Command backSpin() {
     return new RunCommand(
       () -> RobotContainer.m_CoralDrop.backwardSpin(),

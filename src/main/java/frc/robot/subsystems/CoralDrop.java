@@ -38,6 +38,11 @@ public class CoralDrop extends SubsystemBase {
   public void backwardSpin(){
     coralDropMotor.set(coralBackwardSpinSpeed);
  }
+
+  public void slowSettingsSubsystem(){
+    coralForwardSpinSpeed = -0.1;
+    coralBackwardSpinSpeed = 0.1;
+  }
   
   public void upForwardCoralSpeedSubsystem(){
     if (coralForwardSpinSpeed > -1) {

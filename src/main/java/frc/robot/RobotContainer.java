@@ -163,8 +163,11 @@ public class RobotContainer
     Trigger upBackwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(9));
     upBackwardCoralSpeed.whileTrue(coralDropCommand.upBackwardCoralSpeedCommand());
 
-    Trigger downBackwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(10));
-    downBackwardCoralSpeed.whileTrue(coralDropCommand.downBackwardCoralSpeedCommand());
+    Trigger downBackwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(12));
+    downBackwardCoralSpeed.whileTrue(coralDropCommand.slowCommand());
+
+    // Trigger slowSettingsBucketMove = new Trigger(() -> driverXbox.getRawButton(12));
+    // slowSettingsBucketMove.whileTrue(coralDropCommand.downBackwardCoralSpeedCommand());
     // Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
     //     driveDirectAngle);
     // Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
