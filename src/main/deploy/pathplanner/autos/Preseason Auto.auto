@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Preseason Path Back"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "CorralDrop Outake"
@@ -19,7 +13,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.65
+            "waitTime": 1.75
           }
         },
         {
@@ -50,6 +44,12 @@
           "type": "named",
           "data": {
             "name": "CorralDrop Stop"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Preseason Path Forwards"
           }
         }
       ]
