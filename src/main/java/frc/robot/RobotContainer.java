@@ -21,9 +21,11 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.GenericHID;
+// import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,7 +49,12 @@ public class RobotContainer
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final GenericHID driverXbox = new GenericHID(0);
+
+  //THIS IS THE OLD CODE BELOW FOR THE LARGE JOYSTICK. REVERT TO THIS OLD CODE IF NEEDED
+  // final GenericHID driverXbox = new GenericHID(0);
+  //THIS IS THE NEW CODE
+  final CommandPS4Controller driverController = new CommandPS4Controller(0);
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
@@ -56,10 +63,20 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getRawAxis(1) * -1,
-                                                                () -> driverXbox.getRawAxis(0) * -1)
-                                                            .withControllerRotationAxis(() -> driverXbox.getRawAxis(2) * -1)
-                                                            // .withControllerRotationAxis(() -> 0)
+                                                                //THIS IS ALSO OLD CODE. REVERT TO THIS IF NECESSARY
+                                                                // () -> driverXbox.getRawAxis(1) * -1,
+                                                                // () -> driverXbox.getRawAxis(0) * -1)
+                                                              // .withControllerRotationAxis(() -> driverXbox.getRawAxis(2) * -1)
+                                                            // // .withControllerRotationAxis(() -> 0)
+                                                            // .deadband(OperatorConstants.DEADBAND)
+                                                            // .scaleTranslation(0.8)
+                                                            // .allianceRelativeControl(true);
+
+                                                                //THIS IS THE NEW CODE:
+                                                                () -> -driverController.getLeftY(),   // forward / backward
+                                                                () -> -driverController.getLeftX())   // strafe
+                                                            .withControllerRotationAxis(
+                                                                () -> -driverController.getRightX())  // rotation
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -135,35 +152,35 @@ public class RobotContainer
 
     //driverXbox.button(1).whileTrue(m_Climb.moveLeftClimbUp());
 
-
-     Trigger ClimbUpL = new Trigger(() -> driverXbox.getRawButton(3));
+    //IF ANY OF THESE COMMANDS AREN'T WORKING, REPLACE driverController.getHID() WITH driverXbox
+     Trigger ClimbUpL = new Trigger(() -> driverController.getHID().getRawButton(3));
      ClimbUpL.whileTrue(Climber.moveLeftClimberUp());
 
-     Trigger ClimbDownL = new Trigger(() -> driverXbox.getRawButton(5));
+     Trigger ClimbDownL = new Trigger(() -> driverController.getHID().getRawButton(5));
      ClimbDownL.whileTrue(Climber.moveLeftClimberDown());
 
-     Trigger ClimbUpR = new Trigger(() -> driverXbox.getRawButton(4));
+     Trigger ClimbUpR = new Trigger(() -> driverController.getHID().getRawButton(4));
      ClimbUpR.whileTrue(Climber.moveRightClimberUp());
 
-     Trigger ClimbDownR = new Trigger(() -> driverXbox.getRawButton(6));
+     Trigger ClimbDownR = new Trigger(() -> driverController.getHID().getRawButton(6));
      ClimbDownR.whileTrue(Climber.moveRightClimberDown());
      
-    Trigger upSpinButton = new Trigger(() -> driverXbox.getRawButton(1));
+    Trigger upSpinButton = new Trigger(() -> driverController.getHID().getRawButton(1));
     upSpinButton.whileTrue(coralDropCommand.frontSpin());
 
-    Trigger downSpinButton = new Trigger(() -> driverXbox.getRawButton(2));
+    Trigger downSpinButton = new Trigger(() -> driverController.getHID().getRawButton(2));
     downSpinButton.whileTrue(coralDropCommand.backSpin());
 
-    Trigger upForwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(7));
+    Trigger upForwardCoralSpeed = new Trigger(() -> driverController.getHID().getRawButton(7));
     upForwardCoralSpeed.whileTrue(coralDropCommand.upForwardCoralSpeedCommand());
 
-    Trigger downForwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(8));
+    Trigger downForwardCoralSpeed = new Trigger(() -> driverController.getHID().getRawButton(8));
     downForwardCoralSpeed.whileTrue(coralDropCommand.downForwardCoralSpeedCommand());
 
-    Trigger upBackwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(9));
+    Trigger upBackwardCoralSpeed = new Trigger(() -> driverController.getHID().getRawButton(9));
     upBackwardCoralSpeed.whileTrue(coralDropCommand.upBackwardCoralSpeedCommand());
 
-    Trigger downBackwardCoralSpeed = new Trigger(() -> driverXbox.getRawButton(12));
+    Trigger downBackwardCoralSpeed = new Trigger(() -> driverController.getHID().getRawButton(12));
     downBackwardCoralSpeed.whileTrue(coralDropCommand.slowCommand());
 
     // Trigger slowSettingsBucketMove = new Trigger(() -> driverXbox.getRawButton(12));
