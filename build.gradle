@@ -1,11 +1,24 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2026.1.1"
+    id "edu.wpi.first.GradleRIO" version "2026.2.1"
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+// add repositories so Gradle can resolve REV artifacts and local jars
+repositories {
+    mavenCentral()
+    // REV's Maven repo (primary)
+    maven { url 'https://maven.revrobotics.com/artifactory/repo' }
+    // alternative REV URL if needed
+    maven { url 'https://repo.revrobotics.com/artifactory/repo' }
+
+    // allow locally-installed jars and flat dir 'libs'
+    mavenLocal()
+    flatDir { dirs 'libs' }
 }
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
@@ -22,7 +35,7 @@ deploy {
             team = project.frc.getTeamNumber()
             debug = project.frc.getDebugOrDefault(false)
 
-            artifacts {
+            artifacts {            (Invoke-WebRequest -UseBasicParsing 'https://maven.revrobotics.com/artifactory/repo').StatusCode
                 // First part is artifact name, 2nd is artifact type
                 // getTargetTypeClass is a shortcut to get the class type using a string
 
@@ -56,7 +69,7 @@ dependencies {
     annotationProcessor wpi.java.deps.wpilibAnnotations()
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
-
+    
     roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
     roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)
 
@@ -73,6 +86,12 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // REV SparkMax Java SDK (remote). If this exact version is not available, the local JAR fallback below will be used.
+    implementation 'com.revrobotics:SparkMax-java:2024.12.0'
+
+    // local fallback: include any jars placed in project-root/libs/
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 test {
